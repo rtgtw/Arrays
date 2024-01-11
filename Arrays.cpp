@@ -6,65 +6,95 @@
 
 
 
+struct Array {
 
+	int* A;
+	int size;
+	int length;
+};
+
+
+//Displays all of the elements within the array
+void DisplayElements(struct Array arr) {
+	int i;
+
+	std::cout << "Elements are: " << '\n' << '\n';
+
+	for (int i = 0; i < arr.size; i++) {
+		std::cout << "Element: " << arr.A[i] << " Index: " << i << '\n';
+	}
+};
+
+
+//Inserts an element within the array
+void insertElement(struct Array arr, int index, int element) {
+	//index and element are needed to insert the new value
+	//int c can be our current location 
+	int c;
+
+	for (int i = arr.length; i > index; i--) {
+		arr.A[i] = arr.A[i - 1];
+
+	}
+	arr.A[index] = element;
+	arr.length++;
+
+
+
+};
+
+void addElement(struct Array arr, int element) {
+
+	int length = arr.length;
+
+	arr.A[length] = element;
+
+
+};
 
 
 
 
 int main(){
 
-	 //2 dimensional array
+	//Create an array in the heap w/ a structure
+	struct Array arr;
 
-	//Method 1, create a 2d array on the stack normally
-	// 4x3, row then column
-	//initialize it
-	//Fully in the stack
-	int Array1[4][3] = { {55,62,45},{786,56,645},{62,347,13},{72,73,43} };
-	 
-	//Retrieve value of down 3 right 2 (0,0 starting point)
-	std::cout << Array1[2][1] << '\n';
+	int elements;
 
-	//Method 2, Create a 2D array through a pointer and the heap
-	//Create pointer with N amount of rows, and in each row create a new array inside of the heap which will determine the column
-	//The array pointer is created in side of the stack, the arrays are created in the heap
-	//Half in stack, and half in heap
-	int* Array2[3];
+	std::cout << "Enter size of an array: ";
+	std::cin >> arr.size;
 
-	Array2[0] = new int[4];
-	Array2[1] = new int[4];
-	Array2[2] = new int[4];
+	//Create a new array inside of the heap of user input size
+	arr.A = new int[arr.size];
 
-	Array2[1][2] = 255;
+	//User input to enter how many elements that will be inside of the array
+	std::cout << "Enter number of elements: ";
+	std::cin >> elements;
 
-	//Retrieve value of down 2, right 3
-	std::cout << Array2[1][2] << '\n';
+	//For loop to traverse through the array to enter elements
+	std::cout << "Enter all emenents:";
 
+	for (int i = 0; i < elements; i++) {
+		std::cin >> arr.A[i];
+	}
 
+	//Number of elements inside of the array
+	arr.length = elements;
 
-	//Method 3, using a double pointer
-	//Create a double pointer which will point at a pointer created in the heap, and have the pointer created in the heap
-	//point at arrays also created in the heap
-	//Everything is inside of the heap, except for the double pointer
+	DisplayElements(arr);
 
-	//Double pointer which will be pointed at a pointer that is created in the heap
-	int **Array3;
-
-	//Double pointer array 3 has the memory address of a pointer of arrays that have been created inside of the heap
-	//the double pointer can use [] in order to find the memory addresses of all 3 pointers and create arrays within the heap
-	Array3 = new int* [3];
-
-	//Create first row out of 3 of the array, this is not a pointer,its just an array
-	Array3[0] = new int[4];
-	Array3[1] = new int[4];
-	Array3[2] = new int[4];
-
-
-	//Input a value
-
-	Array3[1][3] = 55;
-
-	std::cout << Array3[1][3] << '\n';
-
+	insertElement(arr, 9, 99);
+	arr.length++;
+	insertElement(arr, 9, 98);
+	arr.length++;
+	DisplayElements(arr);
+	addElement(arr, 2222);
+	arr.length++;
+	DisplayElements(arr);
+	insertElement(arr, 4, 9999);
+	arr.length++;
+	DisplayElements(arr);
 
 
 
@@ -195,8 +225,6 @@ int main(){
 
 
 
-
-
 #include <iostream>
 
 
@@ -213,6 +241,7 @@ int main(){
 int main(){
 
 	 //2 dimensional array
+	//Nested for loop helps you traverse through a two-dimensional array, row by row
 
 	//Method 1, create a 2d array on the stack normally
 	// 4x3, row then column
@@ -264,13 +293,28 @@ int main(){
 
 	std::cout << Array3[1][3] << '\n';
 
+	//Row
+	for (int i = 0; i < 3; i++) {
+		//Column
+		for (int j = 0; j < 4; j++) {
+			Array3[i][j] = 0;
+		};
+	};
 
-
+	//Row
+	for (int i = 0; i < 3; i++) {
+		//Column
+		for (int j = 0; j < 4; j++) {
+			std::cout << Array3[i][j] << " (" << i << ' ' << j << ')' << '\n';
+		};
+	};
 
 
 
 	return 0;
 };
+
+
 
 
 
