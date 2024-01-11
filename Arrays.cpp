@@ -13,6 +13,61 @@
 
 int main(){
 
+	 //2 dimensional array
+
+	//Method 1, create a 2d array on the stack normally
+	// 4x3, row then column
+	//initialize it
+	//Fully in the stack
+	int Array1[4][3] = { {55,62,45},{786,56,645},{62,347,13},{72,73,43} };
+	 
+	//Retrieve value of down 3 right 2 (0,0 starting point)
+	std::cout << Array1[2][1] << '\n';
+
+	//Method 2, Create a 2D array through a pointer and the heap
+	//Create pointer with N amount of rows, and in each row create a new array inside of the heap which will determine the column
+	//The array pointer is created in side of the stack, the arrays are created in the heap
+	//Half in stack, and half in heap
+	int* Array2[3];
+
+	Array2[0] = new int[4];
+	Array2[1] = new int[4];
+	Array2[2] = new int[4];
+
+	Array2[1][2] = 255;
+
+	//Retrieve value of down 2, right 3
+	std::cout << Array2[1][2] << '\n';
+
+
+
+	//Method 3, using a double pointer
+	//Create a double pointer which will point at a pointer created in the heap, and have the pointer created in the heap
+	//point at arrays also created in the heap
+	//Everything is inside of the heap, except for the double pointer
+
+	//Double pointer which will be pointed at a pointer that is created in the heap
+	int **Array3;
+
+	//Double pointer array 3 has the memory address of a pointer of arrays that have been created inside of the heap
+	//the double pointer can use [] in order to find the memory addresses of all 3 pointers and create arrays within the heap
+	Array3 = new int* [3];
+
+	//Create first row out of 3 of the array, this is not a pointer,its just an array
+	Array3[0] = new int[4];
+	Array3[1] = new int[4];
+	Array3[2] = new int[4];
+
+
+	//Input a value
+
+	Array3[1][3] = 55;
+
+	std::cout << Array3[1][3] << '\n';
+
+
+
+
 
 
 	return 0;
@@ -33,7 +88,7 @@ int main(){
 
 #include <iostream>
 
-
+//Increase size of array when created inside the heap
 
 
 
@@ -142,7 +197,80 @@ int main(){
 
 
 
+#include <iostream>
 
+
+
+
+
+
+
+
+
+
+
+
+int main(){
+
+	 //2 dimensional array
+
+	//Method 1, create a 2d array on the stack normally
+	// 4x3, row then column
+	//initialize it
+	//Fully in the stack
+	int Array1[4][3] = { {55,62,45},{786,56,645},{62,347,13},{72,73,43} };
+
+	//Retrieve value of down 3 right 2 (0,0 starting point)
+	std::cout << Array1[2][1] << '\n';
+
+	//Method 2, Create a 2D array through a pointer and the heap
+	//Create pointer with N amount of rows, and in each row create a new array inside of the heap which will determine the column
+	//The array pointer is created in side of the stack, the arrays are created in the heap
+	//Half in stack, and half in heap
+	int* Array2[3];
+
+	Array2[0] = new int[4];
+	Array2[1] = new int[4];
+	Array2[2] = new int[4];
+
+	Array2[1][2] = 255;
+
+	//Retrieve value of down 2, right 3
+	std::cout << Array2[1][2] << '\n';
+
+
+
+	//Method 3, using a double pointer
+	//Create a double pointer which will point at a pointer created in the heap, and have the pointer created in the heap
+	//point at arrays also created in the heap
+	//Everything is inside of the heap, except for the double pointer
+
+	//Double pointer which will be pointed at a pointer that is created in the heap
+	int **Array3;
+
+	//Double pointer array 3 has the memory address of a pointer of arrays that have been created inside of the heap
+	//the double pointer can use [] in order to find the memory addresses of all 3 pointers and create arrays within the heap
+	Array3 = new int* [3];
+
+	//Create first row out of 3 of the array, this is not a pointer,its just an array
+	Array3[0] = new int[4];
+	Array3[1] = new int[4];
+	Array3[2] = new int[4];
+
+
+	//Input a value
+
+	Array3[1][3] = 55;
+
+	std::cout << Array3[1][3] << '\n';
+
+
+
+
+
+
+	return 0;
+};
 
 
 
