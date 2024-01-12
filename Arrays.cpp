@@ -445,7 +445,42 @@ int minElement(struct Array arr) {
 
 
 
+//Find the sum of the full array
+//Pass the array as a parameter
+int sumOfElementsWithinArray(struct Array arr) {
+	
+	//Create a local variable total to represent a count for the total sum
+	int total = 0;
 
+	//create a for loop to iterate through each element within the array
+	for (int i = 0; i < arr.length; i++) {
+		
+		//with each iteration, add the element with total, and store it within total
+		total = total + arr.A[i];
+			
+	};
+
+	//return total
+	return total;
+
+};
+
+
+//Recursively obtains the sum of the array
+//This is done in O(n), because the activation records  that are called is in
+//O(n), a regular for loop is prefered 
+int sumOfElementsWithArrayRecursive(struct Array arr, int n) {
+		
+	//the index is only from 0 to n, so if it falls below 0 then return 0
+	if (n < 0) {
+		return 0;
+	}
+	else
+		//recursively calls the function, this will keep doing n - 1 recurisvely
+		//until it reaches n = 0, then it will add up A[n] and return the sum of the array
+		return sumOfElementsWithArrayRecursive(arr, n - 1) + arr.A[n];
+	
+};
 
 
 
@@ -487,6 +522,8 @@ int minElement(struct Array arr) {
 		display(arr);
 		std::cout << '\n' << '\n' << maxElement(arr);
 		std::cout << '\n' << '\n' << minElement(arr);
+		std::cout << '\n' << '\n' << sumOfElementsWithinArray(arr);
+		std::cout << '\n' << '\n' << sumOfElementsWithArrayRecursive(arr, arr.length - 1);
 		//deleteElement(&arr, 1);
 		//display(arr);
 		
