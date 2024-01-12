@@ -8,96 +8,71 @@
 
 struct Array {
 
-	int* A;
+	int A[10];
 	int size;
 	int length;
 };
 
 
-//Displays all of the elements within the array
-void DisplayElements(struct Array arr) {
+void display(struct Array arr) {
 	int i;
-
-	std::cout << "Elements are: " << '\n' << '\n';
-
-	for (int i = 0; i < arr.size; i++) {
-		std::cout << "Element: " << arr.A[i] << " Index: " << i << '\n';
+	std::cout << "Elements are: " << '\n';
+	for (i = 0; i < arr.length; i++) {
+		std::cout << arr.A[i] << '\n';
 	}
 };
 
+//Inserts a new element at the end of the array
+//we will use a pointer as the parameter since we want to change the value by address
 
-//Inserts an element within the array
-void insertElement(struct Array arr, int index, int element) {
-	//index and element are needed to insert the new value
-	//int c can be our current location 
-	int c;
+void append(struct Array *arr, int x) {
 
-	for (int i = arr.length; i > index; i--) {
-		arr.A[i] = arr.A[i - 1];
-
+	if (arr->length < arr->size) {
+		arr->A[arr->length++] = x;
+		
 	}
-	arr.A[index] = element;
-	arr.length++;
+};
+//Take the array by ADDRESS since it will modify the array
+void insert(struct Array *arr, int index, int value) {
+
+	//First we have to check if the index is valid, which is 0 to the length of the array
+	//if you do index < arr-> then you cannot append because it will not insert at the length of the array
+	//but if you do <= then it will insert at the next available slot
 
 
+	if (index >= 0 && index <= arr->length) {
+		for (int i = arr->length; i > index; i--) {
+
+			//A[i] represents the next available location
+			//we want to take the last element inside of the array with i-1, and equal it to A[i]
+			//this will shift all of the elements up to index, 
+			arr->A[i] = arr->A[i - 1];
+		};
+		//then we insert our values since everything has been shifted
+		arr->A[index] = value;
+
+		//the length of our index has grown by 1 since we inserted a value, so we have to 
+		//increase the legnth
+		arr->length++;
+	};
 
 };
-
-void addElement(struct Array arr, int element) {
-
-	int length = arr.length;
-
-	arr.A[length] = element;
-
-
-};
-
-
 
 
 int main(){
 
-	//Create an array in the heap w/ a structure
-	struct Array arr;
+	
+	struct Array arr = { {2,3,4,6,8}, 10,5 };
 
-	int elements;
+	int i;
+	int v;
+	std::cin >> i;
+	std::cin >> v;
 
-	std::cout << "Enter size of an array: ";
-	std::cin >> arr.size;
-
-	//Create a new array inside of the heap of user input size
-	arr.A = new int[arr.size];
-
-	//User input to enter how many elements that will be inside of the array
-	std::cout << "Enter number of elements: ";
-	std::cin >> elements;
-
-	//For loop to traverse through the array to enter elements
-	std::cout << "Enter all emenents:";
-
-	for (int i = 0; i < elements; i++) {
-		std::cin >> arr.A[i];
-	}
-
-	//Number of elements inside of the array
-	arr.length = elements;
-
-	DisplayElements(arr);
-
-	insertElement(arr, 9, 99);
-	arr.length++;
-	insertElement(arr, 9, 98);
-	arr.length++;
-	DisplayElements(arr);
-	addElement(arr, 2222);
-	arr.length++;
-	DisplayElements(arr);
-	insertElement(arr, 4, 9999);
-	arr.length++;
-	DisplayElements(arr);
-
-
-
+	insert(&arr, i, v);
+	insert(&arr, 6, 525);
+	append(&arr, 99);
+	display(arr);
 
 
 	return 0;
@@ -332,6 +307,112 @@ int main(){
 
 
 -------------------------------------------------------------------------------------------------------------------------- -
+
+#include <iostream>
+
+
+
+
+
+
+
+struct Array {
+
+	int* A;
+	int size;
+	int length;
+};
+
+
+//Displays all of the elements within the array
+void DisplayElements(struct Array arr) {
+	int i;
+
+	std::cout << "Elements are: " << '\n' << '\n';
+
+	for (int i = 0; i < arr.size; i++) {
+		std::cout << "Element: " << arr.A[i] << " Index: " << i << '\n';
+	}
+};
+
+
+//Inserts an element within the array
+void insertElement(struct Array arr, int index, int element) {
+	//index and element are needed to insert the new value
+	//int c can be our current location
+	int c;
+
+	for (int i = arr.length; i > index; i--) {
+		arr.A[i] = arr.A[i - 1];
+
+	}
+	arr.A[index] = element;
+	arr.length++;
+
+
+
+};
+
+void addElement(struct Array arr, int element) {
+
+	int length = arr.length;
+
+	arr.A[length] = element;
+
+
+};
+
+
+
+
+int main(){
+
+	//Create an array in the heap w/ a structure
+	struct Array arr;
+
+	int elements;
+
+	std::cout << "Enter size of an array: ";
+	std::cin >> arr.size;
+
+	//Create a new array inside of the heap of user input size
+	arr.A = new int[arr.size];
+
+	//User input to enter how many elements that will be inside of the array
+	std::cout << "Enter number of elements: ";
+	std::cin >> elements;
+
+	//For loop to traverse through the array to enter elements
+	std::cout << "Enter all emenents:";
+
+	for (int i = 0; i < elements; i++) {
+		std::cin >> arr.A[i];
+	}
+
+	//Number of elements inside of the array
+	arr.length = elements;
+
+	DisplayElements(arr);
+
+	insertElement(arr, 9, 99);
+	arr.length++;
+	insertElement(arr, 9, 98);
+	arr.length++;
+	DisplayElements(arr);
+	addElement(arr, 2222);
+	arr.length++;
+	DisplayElements(arr);
+	insertElement(arr, 4, 9999);
+	arr.length++;
+	DisplayElements(arr);
+
+
+
+
+
+	return 0;
+};
+
 
 
 
