@@ -406,14 +406,46 @@ int maxElement(struct Array arr) {
 
 			max = arr.A[i];
 		};
-
 	}
 
-
 	return max;
+};
 
+
+
+
+
+
+
+
+//Close to the same logic as max but instead we have a min variable
+//We use int data type since we are returning min
+int minElement(struct Array arr) {
+	
+	//create a min variable that holds the first element within the array
+	int min = arr.A[0];
+
+	//create a for loop to iterate through the array starting at index 1, since 
+	//we stored index 0 and will use that value to check the other elements
+	for (int i = 1; i < arr.length; i++) {
+
+		//if the element at index i is less than min, then replace min with A[i]
+		if (arr.A[i] < min) {
+
+			min = arr.A[i];
+		};
+	};
+
+	//return min
+	return min;
 
 };
+
+
+
+
+
+
 
 
 
@@ -448,7 +480,13 @@ int maxElement(struct Array arr) {
 		display(arr);
 		//setElement(&arr, 1, 444);
 		display(arr);
+		
+
+		insertElement(&arr, 0, 94);
+		deleteElement(&arr, 1);
+		display(arr);
 		std::cout << '\n' << '\n' << maxElement(arr);
+		std::cout << '\n' << '\n' << minElement(arr);
 		//deleteElement(&arr, 1);
 		//display(arr);
 		
