@@ -1,16 +1,13 @@
 #include <iostream>
 
 
-
-
-
-
 struct Array {
 
 	int A[10];
 	int size;
 	int length;
 };
+
 
 //Displays the elements within an array
 //Displays only from 0 to length, not 0 to the full size 
@@ -23,6 +20,9 @@ void display(struct Array arr) {
 		std::cout << arr.A[i] << '\n';
 	}
 };
+
+
+
 
 
 
@@ -81,6 +81,12 @@ void insert(struct Array *arr, int index, int value) {
 
 
 
+
+
+
+
+
+
 //Delete an element within an array
 //We use int here in order to return a success or failure
 //Success will return the element deleted, failure will return 1
@@ -125,6 +131,8 @@ int deleteElement(struct Array *arr, int index) {
 
 
 
+
+
   //int data type since we want to return a value, which is the index at which the key is present
 //we are just passing in the object inside of the parameter, not the object pointer since 
 //we dont want to change any values we just want to search the object
@@ -149,6 +157,14 @@ int linearArraySearch(struct Array arr, int key) {
 
 };
 
+
+
+
+
+
+
+
+
 //Create a swap function to swap the values of two elements by address
 //This swap function is necessary to perform transposition or Move to Head logic on an array
 //to swap two elements after a search query in order to speed up performance
@@ -165,6 +181,9 @@ void swapElements(int* x, int* y) {
 	*y = temp;
 
 };
+
+
+
 
 
 
@@ -241,6 +260,15 @@ int improvedLinearArraySearchMoveToHead(struct Array* arr, int key) {
 	return -1;
 };
 
+
+
+
+
+
+
+
+
+
 //Does a binary search in log2 time complexity, a key in the parameter
 //which is the value that you are looking for
 //Binary search only works with an array that is sorted, it will not work with an unsorted array
@@ -283,10 +311,16 @@ int binaryArraySearchUsingLoop(struct Array arr, int key) {
 
 };
 
+
+
+
+
+
+
+
+
 //pass in 4 parameters, an array, the key, left bound and right bound
 int binarySearchArrayUsingRecursion(int A[], int key, int left, int right) {
-
-
 
 	while (left <= right) {
 
@@ -306,11 +340,33 @@ int binarySearchArrayUsingRecursion(int A[], int key, int left, int right) {
 			return binarySearchArrayUsingRecursion(A, key, mid + 1, right);
 		}
 
-
 	};
 	//return -1 if it was unsuccessful
 	return -1;
 };
+
+
+
+//Get an element within an array
+//its int because we are returning a value (key)
+int getElement(struct Array arr, int index) {
+
+	//All we have to do is check if the index is valid, by making sure
+	//it is not lower than 0 or higher than the length of the array
+	if (index >= 0 && index < arr.length) {
+		
+		//return the element at the specific index given
+		return arr.A[index];
+	}
+	return -1;
+};
+
+
+
+
+
+
+
 
 
 
@@ -338,8 +394,9 @@ int binarySearchArrayUsingRecursion(int A[], int key, int left, int right) {
 		//deleteElement(&arr, 0);
 		//std::cout << binaryArraySearchUsingLoop(arr, 100) << '\n' << '\n';
 
-		std::cout << binarySearchArrayUsingRecursion(arr.A,100,0,arr.length-1) << '\n' << '\n';
+		//std::cout << binarySearchArrayUsingRecursion(arr.A,100,0,arr.length-1) << '\n' << '\n';
 		display(arr);
+		//std::cout << '\n' << '\n' << getElement(arr, 2) << '\n';
 		//std::cout << '\n' << '\n' << linearArraySearch(arr, 21) << '\n';
 
 
