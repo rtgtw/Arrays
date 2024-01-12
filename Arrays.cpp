@@ -466,6 +466,44 @@ int sumOfElementsWithinArray(struct Array arr) {
 };
 
 
+
+
+//Find the sum of the full array and divide by the total number of elements
+// which is length -1
+//Pass the array as a parameter
+int averageOfElementsWithinArray(struct Array arr) {
+
+	//Create a local variable total to represent a count for the total sum
+	int total = 0;
+
+	//create a local variable average to represent the average value
+	int average;
+
+	//create a for loop to iterate through each element within the array
+	for (int i = 0; i < arr.length; i++) {
+
+		//with each iteration, add the element with total, and store it within total
+		total = total + arr.A[i];
+
+	};
+
+	//since we are getting the average, we want the length, not length - 1 which gives us
+	//the location of the last element within an array
+	average = total / arr.length ;
+
+
+	//return total
+	return average;
+
+};
+
+
+
+
+
+
+
+
 //Recursively obtains the sum of the array
 //This is done in O(n), because the activation records  that are called is in
 //O(n), a regular for loop is prefered 
@@ -517,13 +555,15 @@ int sumOfElementsWithArrayRecursive(struct Array arr, int n) {
 		display(arr);
 		
 
-		insertElement(&arr, 0, 94);
+		insertElement(&arr, 0, 999);
 		deleteElement(&arr, 1);
 		display(arr);
 		std::cout << '\n' << '\n' << maxElement(arr);
 		std::cout << '\n' << '\n' << minElement(arr);
 		std::cout << '\n' << '\n' << sumOfElementsWithinArray(arr);
 		std::cout << '\n' << '\n' << sumOfElementsWithArrayRecursive(arr, arr.length - 1);
+		std::cout << '\n' << '\n' << averageOfElementsWithinArray(arr);
+		std::cout << '\n' << '\n' << arr.length;
 		//deleteElement(&arr, 1);
 		//display(arr);
 		
