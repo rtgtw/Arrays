@@ -203,6 +203,15 @@ int improvedLinearArraySearchTransposition(struct Array* arr, int key) {
 };
 
 
+
+
+
+
+
+
+
+
+
 	//Move to head linear search, this is the same as a transposition linear search
 	// the only difference is, instead of swapping out the one to the left, it gets
 	//swap to the first position in the array
@@ -232,11 +241,54 @@ int improvedLinearArraySearchMoveToHead(struct Array* arr, int key) {
 	return -1;
 };
 
+//Does a binary search in log2 time complexity, a key in the parameter
+//which is the value that you are looking for
+//Binary search only works with an array that is sorted, it will not work with an unsorted array
+int binaryArraySearchUsingLoop(struct Array arr, int key) {
+	
+	//define the low of the array, which is the first value
+	int left = 0;
+
+	//define the end of the array as the upper bound
+	int right = arr.length;
+	
+	//create a while loop which iterates through unless the condition turns false
+	while (left <= right) {
+		
+		//create the mid point of the lower and upper bound
+		int mid = (left + right) / 2;
+
+		//if the key is at the index, return the index
+		if (key == arr.A[mid]) {
+
+			return mid;
+		}
+
+		//if they key's value is less than the element within the array at A[mid]
+		//we want to make our upper bound to mid - 1, we do -1 here because we have already
+		//verified that the element at mid is not the key
+		else if (key < arr.A[mid]) {
+			right = mid - 1;
+		}
+		//else if the value of our key was higher than the mid element's value we want to
+		//make our lower bound mid + 1
+		else 
+			left = mid + 1;
+		
+
+
+	};
+	//return -1 if it was unsuccessful
+	return -1;
+
+};
+
+
 
 	
 	int main() {
 
-		struct Array arr = { {22,44,55,66,77}, 10,5 };
+		struct Array arr = { {0,20,50,80,100}, 10,5 };
 
 		//int i;
 		//int v;
@@ -245,18 +297,17 @@ int improvedLinearArraySearchMoveToHead(struct Array* arr, int key) {
 
 		//insert(&arr, i, v);
 		//insert(&arr, 5, 525);
-		append(&arr, 99);
+		//append(&arr, 99);
 		//std::cout << deleteElement(&arr, 3) << '\n' << '\n';
-		append(&arr, 49);
+		//append(&arr, 49);
 		//std::cout << deleteElement(&arr, 2) << '\n' << '\n';
-		append(&arr, 62);
+		//append(&arr, 62);
 		//std::cout << deleteElement(&arr, arr.length - 1) << '\n' << '\n';
-		display(arr);
-
-		improvedLinearArraySearchMoveToHead(&arr, 77);
-		display(arr);
-		deleteElement(&arr, 0);
-
+		//display(arr);
+		//improvedLinearArraySearchMoveToHead(&arr, 77);
+		//display(arr);
+		//deleteElement(&arr, 0);
+		std::cout << binaryArraySearchUsingLoop(arr, 100) << '\n' << '\n';
 		display(arr);
 		//std::cout << '\n' << '\n' << linearArraySearch(arr, 21) << '\n';
 
