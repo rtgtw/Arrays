@@ -5,7 +5,6 @@
 
 
 
-
 struct Array {
 
 	int A[10];
@@ -17,6 +16,8 @@ struct Array {
 //Displays only from 0 to length, not 0 to the full size 
 void display(struct Array arr) {
 	int i;
+
+	std::cout << '\n' << '\n';
 	std::cout << "Elements are: " << '\n';
 	for (i = 0; i < arr.length; i++) {
 		std::cout << arr.A[i] << '\n';
@@ -124,40 +125,145 @@ int deleteElement(struct Array *arr, int index) {
 
 
 
+  //int data type since we want to return a value, which is the index at which the key is present
+//we are just passing in the object inside of the parameter, not the object pointer since 
+//we dont want to change any values we just want to search the object
+//we pass the key in our parameters to look for the desired value
+int linearArraySearch(struct Array arr, int key) {
 
+	//we can create a for loop that iterates through the array from 0 to length in a linear fashion
+	//this will take a maximum of O(n) and a minimum of O(1)
+	for (int i = 0; i < arr.length; i++) {
 
+		//throughout each iteration, if the key is present within any of the elements
+		//within the array, then return the index where it is present
+		if (key == arr.A[i]) {
+			return i;
+		}
 
-
-
-
-
-
-int main(){
-
+	};
 	
-	struct Array arr = { {22,44,55,66,77}, 10,5 };
-
-	int i;
-	int v;
-	//std::cin >> i;
-	//std::cin >> v;
-
-	//insert(&arr, i, v);
-	//insert(&arr, 5, 525);
-	append(&arr, 99);
-	//std::cout << deleteElement(&arr, 3) << '\n' << '\n';
-	append(&arr, 44);
-	//std::cout << deleteElement(&arr, 2) << '\n' << '\n';
-	append(&arr, 62);
-	//std::cout << deleteElement(&arr, arr.length - 1) << '\n' << '\n';
-	display(arr);
+	//if the key was not found within the array, then return -1 to signify unsuccessful
+	return -1;
 
 
-	return 0;
+};
+
+//Create a swap function to swap the values of two elements by address
+//This swap function is necessary to perform transposition or Move to Head logic on an array
+//to swap two elements after a search query in order to speed up performance
+void swapElements(int* x, int* y) {
+
+	int temp;
+
+	temp = *x;
+	
+	//very subtle blunder, i originally had *y = *x but it should be *x = *y
+	//since we want to store x in temp, and give x the value of y
+	*x = *y;
+
+	*y = temp;
+
 };
 
 
 
+
+
+//an improved linear search actually modifies the values of the array through a swap
+//so we must use a pointer instead of a call by value
+int improvedLinearArraySearchTransposition(struct Array* arr, int key) {
+
+
+	//This for loop logic took me some time because I had to account for the 
+	//edge case of when i = 0; when i = 0 then swapping to i-1 will generate an error
+	//To solve this, first create a for loop to iterate through the array
+	// within the for loop, first create an if statement that checks if the key is within 
+	//A[0], if so then just return the index, and not do i-1
+	//else, use the transposition logic w/ swap, if the key is at A[0] then the for loop
+	//Breaks, but if it isnt , then it checks the rest of of the array, 1 to length -1
+	for (int i = 0; i < arr->length; i++) {
+
+		//if the key matches the value within index 0 then return index 0
+		if (key == arr->A[0]) {
+			return i;
+		}
+		//if the key matches an index then, swap the values of elements in the current index and index - 1
+		//using a swap function, and return index - 1 since that is the key that was found
+		else if (key == arr->A[i]) {
+
+			swapElements(&arr->A[i], &arr->A[i - 1]);
+
+			return i - 1;
+
+		};
+	}
+
+	return -1;
+};
+
+
+	//Move to head linear search, this is the same as a transposition linear search
+	// the only difference is, instead of swapping out the one to the left, it gets
+	//swap to the first position in the array
+
+int improvedLinearArraySearchMoveToHead(struct Array* arr, int key) {
+
+	for (int i = 0; i < arr->length; i++) {
+
+		//if the key is already at A[0] then just return the key, nothing else needs to be done
+		if (key == arr->A[0]) {
+			return i;
+		}
+		else if (key == arr->A[i]) {
+
+			//Instead of swapping with the neighbor element
+			//Swap directly to the front of the array
+			swapElements(&arr->A[i], &arr->A[0]);
+
+			//the index is going to be 0 because it swapped
+				return 0;
+
+		};
+
+	};
+
+	//return -1 if the search was unsuccessful
+	return -1;
+};
+
+
+	
+	int main() {
+
+		struct Array arr = { {22,44,55,66,77}, 10,5 };
+
+		//int i;
+		//int v;
+		//std::cin >> i;
+		//std::cin >> v;
+
+		//insert(&arr, i, v);
+		//insert(&arr, 5, 525);
+		append(&arr, 99);
+		//std::cout << deleteElement(&arr, 3) << '\n' << '\n';
+		append(&arr, 49);
+		//std::cout << deleteElement(&arr, 2) << '\n' << '\n';
+		append(&arr, 62);
+		//std::cout << deleteElement(&arr, arr.length - 1) << '\n' << '\n';
+		display(arr);
+
+		improvedLinearArraySearchMoveToHead(&arr, 77);
+		display(arr);
+		deleteElement(&arr, 0);
+
+		display(arr);
+		//std::cout << '\n' << '\n' << linearArraySearch(arr, 21) << '\n';
+
+
+		return 0;
+
+	};
 
 
 
