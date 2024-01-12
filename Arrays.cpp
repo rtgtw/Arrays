@@ -386,6 +386,39 @@ int setElement(struct Array *arr,int index, int set) {
 
 
 
+//Get the max element within an array
+//int data type since we are returning the max value
+//only parameter is the array
+int maxElement(struct Array arr) {
+
+	//create a max variable that will start at the beginning of the array
+	int max = arr.A[0];
+
+	//since our max is already set to the value at the beginning of the array
+	//all is left is for us to check that value with every other element in the array
+	//which will take O(n), this is the only way with an unsorted array,
+	//If the array was sorted then we would take the value of length - 1
+	for (int i = 1; i < arr.length; i++) {
+
+		//if we find a value that is greater than max, then we change max to the new value
+		//at that specific index
+		if (arr.A[i] > max) {
+
+			max = arr.A[i];
+		};
+
+	}
+
+
+	return max;
+
+
+};
+
+
+
+
+
 
 	
 	int main() {
@@ -399,11 +432,11 @@ int setElement(struct Array *arr,int index, int set) {
 
 		//insert(&arr, i, v);
 		//insert(&arr, 5, 525);
-		//append(&arr, 99);
+		append(&arr, 99);
 		//std::cout << deleteElement(&arr, 3) << '\n' << '\n';
-		//append(&arr, 49);
+		append(&arr, 49);
 		//std::cout << deleteElement(&arr, 2) << '\n' << '\n';
-		//append(&arr, 62);
+		append(&arr, 62);
 		//std::cout << deleteElement(&arr, arr.length - 1) << '\n' << '\n';
 		//display(arr);
 		//improvedLinearArraySearchMoveToHead(&arr, 77);
@@ -413,12 +446,11 @@ int setElement(struct Array *arr,int index, int set) {
 
 		//std::cout << binarySearchArrayUsingRecursion(arr.A,100,0,arr.length-1) << '\n' << '\n';
 		display(arr);
-		setElement(&arr, 1, 444);
+		//setElement(&arr, 1, 444);
 		display(arr);
-		deleteElement(&arr, 1);
-		display(arr);
-		insertElement(&arr, 1, 444);
-		display(arr);
+		std::cout << '\n' << '\n' << maxElement(arr);
+		//deleteElement(&arr, 1);
+		//display(arr);
 		
 		//std::cout << '\n' << '\n' << getElement(arr, 2) << '\n';
 		//std::cout << '\n' << '\n' << linearArraySearch(arr, 21) << '\n';
