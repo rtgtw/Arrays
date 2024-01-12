@@ -51,7 +51,7 @@ void append(struct Array *arr, int x) {
 //Take the array by ADDRESS since it will modify the array
 //This is pointing to the OBJECT arr, not a particular arr, just the WHOLE object
 //Meaning we can modify its member variables 
-void insert(struct Array *arr, int index, int value) {
+void insertElement(struct Array *arr, int index, int value) {
 
 	//First we have to check if the index is valid, which is 0 to the length of the array
 	//if you do index < arr-> then you cannot append because it will not insert at the length of the array
@@ -362,7 +362,24 @@ int getElement(struct Array arr, int index) {
 };
 
 
+//Set a value within an array
+//Since we are changing the values within the array, we have to use a pointer
+//We will use the int data type to return 0 for success and 1 for failure
+int setElement(struct Array *arr,int index, int set) {
+	
+	//Checks if the index the user input is valid and within the bounds of the array
+	if (index >= 0 && index < arr->length) {
 
+		//stores the value of the user set at the specified index within the array
+		arr->A[index] = set;
+
+		//returns 0 to signify success
+		return 0;
+	}
+	
+	//returns -1 to signify failure
+	return -1;
+};
 
 
 
@@ -396,6 +413,13 @@ int getElement(struct Array arr, int index) {
 
 		//std::cout << binarySearchArrayUsingRecursion(arr.A,100,0,arr.length-1) << '\n' << '\n';
 		display(arr);
+		setElement(&arr, 1, 444);
+		display(arr);
+		deleteElement(&arr, 1);
+		display(arr);
+		insertElement(&arr, 1, 444);
+		display(arr);
+		
 		//std::cout << '\n' << '\n' << getElement(arr, 2) << '\n';
 		//std::cout << '\n' << '\n' << linearArraySearch(arr, 21) << '\n';
 
