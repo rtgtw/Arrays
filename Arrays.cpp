@@ -250,7 +250,7 @@ int binaryArraySearchUsingLoop(struct Array arr, int key) {
 	int left = 0;
 
 	//define the end of the array as the upper bound
-	int right = arr.length;
+	int right = arr.length - 1;
 	
 	//create a while loop which iterates through unless the condition turns false
 	while (left <= right) {
@@ -283,6 +283,35 @@ int binaryArraySearchUsingLoop(struct Array arr, int key) {
 
 };
 
+//pass in 4 parameters, an array, the key, left bound and right bound
+int binarySearchArrayUsingRecursion(int A[], int key, int left, int right) {
+
+
+
+	while (left <= right) {
+
+		int mid = (left + right) / 2;
+
+		if (key == A[mid]) {
+			return mid;
+		}
+		//if the key is less than the mid point, recursively call the function again
+		//with the only difference of the new high point being mid - 1
+		else if (key < A[mid]) {
+			return binarySearchArrayUsingRecursion(A, key, left, mid - 1);
+		}
+		//if the key is less than the mid point, recursively call the function again
+		//with the only difference of the new low point being mid + 1
+		else {
+			return binarySearchArrayUsingRecursion(A, key, mid + 1, right);
+		}
+
+
+	};
+	//return -1 if it was unsuccessful
+	return -1;
+};
+
 
 
 	
@@ -307,7 +336,9 @@ int binaryArraySearchUsingLoop(struct Array arr, int key) {
 		//improvedLinearArraySearchMoveToHead(&arr, 77);
 		//display(arr);
 		//deleteElement(&arr, 0);
-		std::cout << binaryArraySearchUsingLoop(arr, 100) << '\n' << '\n';
+		//std::cout << binaryArraySearchUsingLoop(arr, 100) << '\n' << '\n';
+
+		std::cout << binarySearchArrayUsingRecursion(arr.A,100,0,arr.length-1) << '\n' << '\n';
 		display(arr);
 		//std::cout << '\n' << '\n' << linearArraySearch(arr, 21) << '\n';
 
