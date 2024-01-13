@@ -52,7 +52,16 @@ void append(struct Array *arr, int x) {
 //Meaning we can modify its member variables 
 void insertElement(struct Array *arr, int index, int value) {
 
-	//First we have to check if the index is valid, which is 0 to the length of the array
+	//Check to see if the size of the array is big enough for another element
+	if (arr->length + 1 > arr->size) {
+	
+		std::cout << "Error: Array is not big enough" << '\n';
+
+		return;
+	};
+
+
+	// we have to check if the index is valid, which is 0 to the length of the array
 	//if you do index < arr-> then you cannot append because it will not insert at the length of the array
 	//but if you do <= then it will insert at the next available slot
 
@@ -677,6 +686,10 @@ void insertElementIntoSortedArray(struct Array* arr, int element) {
 	//have the index start at the end of the array, since its sorted, we are working backwards
 	int i = arr->length - 1;
 
+	//Check to see if we have space in order to insert a value
+	if (arr->length == arr->size) {
+		return;
+	}
 	//Create a while loop that continues to iterate until our element is greater than A[i]
 		while (element < arr->A[i]) {
 		
@@ -727,7 +740,41 @@ bool checkIfArrayIsSorted(struct Array arr) {
 
 
 
+//Create a function to swap negative and positive values
+//We want to pass the pointer since we are changing the values within the array
+void swapNegativeAndPositive(struct Array* arr) {
 
+
+	//We want to create two indexes, i and j, i represents the beginning of the array,
+	//and I will scan for any positive numbers, j will scan for any negative numbers
+	int i = 0;
+	int j = arr->length - 1;
+
+	//this loop is true until i (positive scanner) is greater than j ( negative scanner)
+	while (i < j) {
+
+		//if the value at the beginning of the array is negative, continue iterating to
+		// the end of the array, however if i(positive scanner) comes across a positive
+		//number then exit out of the loop
+		while (arr->A[i] < 0) {
+			i++;
+		}
+		//once exited, a new while loop will be entered with j, which will do the same
+		//starting at the end of the array and scanning for negative numbers, if it comes across
+		//a negative number it exits the loop
+		while (arr->A[j] >= 0) {
+			j--;
+		}
+
+		//once both of these values have been found, swap the two and do this process again until i > j
+		if (i < j) {
+			swapElements(&arr->A[i], &arr->A[j]);
+		}
+
+	}
+
+
+};
 
 
 
@@ -743,6 +790,7 @@ bool checkIfArrayIsSorted(struct Array arr) {
 	int main() {
 
 		struct Array arr = { {0,20,50,80,100}, 10,5 };
+		struct Array arr2 = { {-2,20,50,-5,-100}, 10,5 };
 
 		//int i;
 		//int v;
@@ -769,16 +817,23 @@ bool checkIfArrayIsSorted(struct Array arr) {
 		//display(arr);
 		
 
-		insertElement(&arr, 0, 999);
+		//insertElement(&arr, 0, 999);
 		//deleteElement(&arr, 1);
 		//display(arr);
 		//reverseArraySwap(&arr);
 		//reverseArrayAuxilary(&arr);
 		//shiftElementsToRight(&arr);
 		//rotateElementsToRight(&arr);
-		insertElementIntoSortedArray(&arr, 101);
-		display(arr);
-		std::cout <<  checkIfArrayIsSorted(arr);
+		//insertElementIntoSortedArray(&arr, 101);
+		//swapNegativeAndPositive(&arr2);
+		insertElement(&arr2, 0, 4444);
+		insertElement(&arr2, 0, 4443);
+		insertElement(&arr2, 0, 4442);
+		insertElement(&arr2, 0, 4441);
+		insertElement(&arr2, 0, 4440);
+		insertElement(&arr2, 0, 4439);
+		display(arr2);
+		//std::cout <<  checkIfArrayIsSorted(arr);
 		//std::cout << '\n' << '\n' << maxElement(arr);
 		//std::cout << '\n' << '\n' << minElement(arr);
 		//std::cout << '\n' << '\n' << sumOfElementsWithinArray(arr);
