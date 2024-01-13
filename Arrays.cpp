@@ -524,30 +524,42 @@ int sumOfElementsWithArrayRecursive(struct Array arr, int n) {
 
 
 
-/*
+//Pass in the array as a parameter
 void reverseArrayAuxilary(struct Array* arr) {
 	
-	struct Array* auxArrayPointer;
+	//Create a new int array within the heap and have ArrayB point to it
+	//We want to length of our new int array to be the same length as our
+	//struct Array arr's length
+	int* ArrayB = new int[arr->length];
 
 
 	
-	
-	for (int i = arr->length - 1, j = 0; i > 0; i--, j++) {
+	//We create a for loop with two indexes, i represents the index starting at our starting arrayA
+	//We want to reverse the order so we start at the end of our array which is length - 1
+	//our second index j represents the auxilary array which will hold the reversed values of our starting ArrayA
+	//index j will start at 0, we want this loop to continue until it iterates through the whole array
+	for (int i = arr->length - 1, j = 0; i >= 0; i--, j++) {
 		
-		auxArrayPointer->A[j] = arr->A[i];
+		//on each iteration, we want to store the element that is stored in ArrayA and place it into ArrayB
+		ArrayB[j] = arr->A[i];
+
 	
 	};
-
 	
+	//Once we have iterated through the full array with the first loop, we then want to transfer 
+	//the values from ArrayB, and place it into ArrayA from 0 to Length - 1, thus achieving the reverse
 	for (int i = 0; i < arr->length; i++) {
 	
-		arr->A[i] = auxArrayPointer->A[i];
-	
+		arr->A[i] = ArrayB[i];
+
+
 	};
 	
+
+
 };
 
-*/
+
 
 
 
@@ -576,6 +588,10 @@ int reverseArraySwap(struct Array *arr) {
 	//return 1 for unsuccessful
 	return 1;
 };
+
+
+
+
 
 
 
@@ -622,7 +638,8 @@ int reverseArraySwap(struct Array *arr) {
 		insertElement(&arr, 0, 999);
 		deleteElement(&arr, 1);
 		display(arr);
-		reverseArraySwap(&arr);
+		//reverseArraySwap(&arr);
+		reverseArrayAuxilary(&arr);
 		display(arr);
 		//std::cout << '\n' << '\n' << maxElement(arr);
 		//std::cout << '\n' << '\n' << minElement(arr);
