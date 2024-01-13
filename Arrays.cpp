@@ -700,6 +700,36 @@ void insertElementIntoSortedArray(struct Array* arr, int element) {
 
 
 
+//data type is bool since we are returning true or false
+//pass array as parameter
+bool checkIfArrayIsSorted(struct Array arr) {
+
+	//Create a for loop the starts from the beginning of the array A[0]
+	//up until length - 2, the reason for length -2 and not the typical length -1
+	//is because we are making a comparison, and we cannot compare length - 1
+	//with anything  because length is not apart of our array
+	for (int i = 0; i < arr.length - 2; i++) {
+	
+	//if the value of the number on the left is greater than the number on the right
+	//then we know that the array is not sorted and can return false
+		if (arr.A[i] > arr.A[i + 1]) {
+
+			return false;
+		}
+
+	};
+
+	//if we iterated throught the array and all of the numbers on the left are less
+	//than the numbers on the right then we can return true
+	return true;
+
+};
+
+
+
+
+
+
 
 
 
@@ -739,7 +769,7 @@ void insertElementIntoSortedArray(struct Array* arr, int element) {
 		//display(arr);
 		
 
-		//insertElement(&arr, 0, 999);
+		insertElement(&arr, 0, 999);
 		//deleteElement(&arr, 1);
 		//display(arr);
 		//reverseArraySwap(&arr);
@@ -748,6 +778,7 @@ void insertElementIntoSortedArray(struct Array* arr, int element) {
 		//rotateElementsToRight(&arr);
 		insertElementIntoSortedArray(&arr, 101);
 		display(arr);
+		std::cout <<  checkIfArrayIsSorted(arr);
 		//std::cout << '\n' << '\n' << maxElement(arr);
 		//std::cout << '\n' << '\n' << minElement(arr);
 		//std::cout << '\n' << '\n' << sumOfElementsWithinArray(arr);
