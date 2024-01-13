@@ -671,6 +671,35 @@ void rotateElementsToRight(struct Array* arr) {
 };
 
 
+//Pass the array and element into function
+void insertElementIntoSortedArray(struct Array* arr, int element) {
+	
+	//have the index start at the end of the array, since its sorted, we are working backwards
+	int i = arr->length - 1;
+
+	//Create a while loop that continues to iterate until our element is greater than A[i]
+		while (element < arr->A[i]) {
+		
+		//We want to shift the elements to the right after each iteration
+			arr->A[i + 1] = arr->A[i];
+			i--;
+		};
+		//Once our element is greater than A[I] we want to insert our element at that index
+		arr->A[i + 1] = element;
+
+		//then we want to increase the length of our array since we inserted an element
+		arr->length++;
+
+
+};
+
+
+ 
+
+
+
+
+
 
 
 
@@ -692,11 +721,11 @@ void rotateElementsToRight(struct Array* arr) {
 
 		//insert(&arr, i, v);
 		//insert(&arr, 5, 525);
-		append(&arr, 99);
+		//append(&arr, 99);
 		//std::cout << deleteElement(&arr, 3) << '\n' << '\n';
-		append(&arr, 49);
+		//append(&arr, 49);
 		//std::cout << deleteElement(&arr, 2) << '\n' << '\n';
-		append(&arr, 62);
+		//append(&arr, 62);
 		//std::cout << deleteElement(&arr, arr.length - 1) << '\n' << '\n';
 		//display(arr);
 		//improvedLinearArraySearchMoveToHead(&arr, 77);
@@ -705,18 +734,19 @@ void rotateElementsToRight(struct Array* arr) {
 		//std::cout << binaryArraySearchUsingLoop(arr, 100) << '\n' << '\n';
 
 		//std::cout << binarySearchArrayUsingRecursion(arr.A,100,0,arr.length-1) << '\n' << '\n';
-		display(arr);
+		//display(arr);
 		//setElement(&arr, 1, 444);
-		display(arr);
+		//display(arr);
 		
 
-		insertElement(&arr, 0, 999);
-		deleteElement(&arr, 1);
-		display(arr);
+		//insertElement(&arr, 0, 999);
+		//deleteElement(&arr, 1);
+		//display(arr);
 		//reverseArraySwap(&arr);
 		//reverseArrayAuxilary(&arr);
 		//shiftElementsToRight(&arr);
-		rotateElementsToRight(&arr);
+		//rotateElementsToRight(&arr);
+		insertElementIntoSortedArray(&arr, 101);
 		display(arr);
 		//std::cout << '\n' << '\n' << maxElement(arr);
 		//std::cout << '\n' << '\n' << minElement(arr);
