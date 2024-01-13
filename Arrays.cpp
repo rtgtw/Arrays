@@ -1,6 +1,5 @@
 #include <iostream>
 
-
 struct Array {
 
 	int A[10];
@@ -612,12 +611,64 @@ void shiftElementsToRight(struct Array* arr) {
 		}
 	
 	};
-
-
-
-
 };
 
+
+
+
+
+
+
+
+
+
+
+//Pass array into parameter
+void rotateElementsToRight(struct Array* arr) {
+
+	//this temp array will store a single element
+	//the reason for this temp array is, we need to store the element at the end of the array
+	//since we are shiftting to the left, we cannot place the value of length - 1, directly 
+	//into the first index, it will overide the values that are already inside of index 0
+	//So we can create a temp array to hold that value
+	int tempArray[1];
+
+
+		//We want to create a for loop that will start at the end of the array and iterate to the beginning
+		for (int i = arr->length - 1; i > 0; i--) {
+
+
+			//Our first edge case is when the index is at the end of the array
+			//which is actually the starting point, this is where we want to actually store
+			//the value of A[0] in a temp array , since we are going to transfer the element from 
+			//A[length - 1] to A[0], we want to save the value of A[0] first prior to doing so
+			if (i == arr->length - 1) {
+
+
+				//We will store the value of A[0] in a temp array 
+				tempArray[0] = arr->A[0];
+				//We can then insert the element of A[length - 1] into A[0]
+				arr->A[0] = arr->A[i];
+			}
+
+			//when i is 1, this is where we want to place the element that we stored inside of the temp array
+			//but prior to doing so, we have to transfer the value that is within A[i] to A[i+1] to shift it
+			//after shifting it, we can then insert tempArray[0]
+			else if (i == 1) {
+				arr->A[i + 1] = arr->A[i];
+				arr->A[i] = tempArray[0];
+			}
+			else {
+
+				//Since we are shifting to the right in this case, all is left is to shift the value of A[i]
+				//to the next one over A[i+1]
+				arr->A[i + 1] = arr->A[i];
+			}
+
+
+		};	
+
+};
 
 
 
@@ -664,7 +715,8 @@ void shiftElementsToRight(struct Array* arr) {
 		display(arr);
 		//reverseArraySwap(&arr);
 		//reverseArrayAuxilary(&arr);
-		shiftElementsToRight(&arr);
+		//shiftElementsToRight(&arr);
+		rotateElementsToRight(&arr);
 		display(arr);
 		//std::cout << '\n' << '\n' << maxElement(arr);
 		//std::cout << '\n' << '\n' << minElement(arr);
