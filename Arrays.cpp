@@ -528,7 +528,7 @@ int sumOfElementsWithArrayRecursive(struct Array arr, int n) {
 void reverseArrayAuxilary(struct Array* arr) {
 	
 	//Create a new int array within the heap and have ArrayB point to it
-	//We want to length of our new int array to be the same length as our
+	//We want the length of our new int array to be the same length as our
 	//struct Array arr's length
 	int* ArrayB = new int[arr->length];
 
@@ -591,8 +591,32 @@ int reverseArraySwap(struct Array *arr) {
 
 
 
+//Pass array into parameter
+void shiftElementsToRight(struct Array* arr) {
+
+	//Create a forloop taht iterates through the entire array, starting at 
+	//the end of the array, until the beginning
+	for (int i = arr->length - 1; i >= 0; i--) {
+		
+		//Since A[0] is our starting point, we cannot obtain the element from n-1
+		//so when will input 0 
+		if (i == 0) {
+		
+			arr->A[0] = 0;
+		}
+		else {
+
+		//We want to copy the element from the previous index into the current index
+		//to achieve a shift
+			arr->A[i] = arr->A[i - 1];
+		}
+	
+	};
 
 
+
+
+};
 
 
 
@@ -639,7 +663,8 @@ int reverseArraySwap(struct Array *arr) {
 		deleteElement(&arr, 1);
 		display(arr);
 		//reverseArraySwap(&arr);
-		reverseArrayAuxilary(&arr);
+		//reverseArrayAuxilary(&arr);
+		shiftElementsToRight(&arr);
 		display(arr);
 		//std::cout << '\n' << '\n' << maxElement(arr);
 		//std::cout << '\n' << '\n' << minElement(arr);
