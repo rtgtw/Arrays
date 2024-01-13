@@ -456,7 +456,7 @@ int sumOfElementsWithinArray(struct Array arr) {
 	for (int i = 0; i < arr.length; i++) {
 		
 		//with each iteration, add the element with total, and store it within total
-		total = total + arr.A[i];
+		total +=arr.A[i];
 			
 	};
 
@@ -471,25 +471,26 @@ int sumOfElementsWithinArray(struct Array arr) {
 //Find the sum of the full array and divide by the total number of elements
 // which is length -1
 //Pass the array as a parameter
-int averageOfElementsWithinArray(struct Array arr) {
+float averageOfElementsWithinArray(struct Array arr) {
 
 	//Create a local variable total to represent a count for the total sum
 	int total = 0;
 
 	//create a local variable average to represent the average value
-	int average;
+	float average;
 
 	//create a for loop to iterate through each element within the array
 	for (int i = 0; i < arr.length; i++) {
 
 		//with each iteration, add the element with total, and store it within total
-		total = total + arr.A[i];
+		total += arr.A[i];
 
 	};
 
 	//since we are getting the average, we want the length, not length - 1 which gives us
 	//the location of the last element within an array
-	average = total / arr.length ;
+	//Static cast the sum in order to have a float return value in average
+	average = static_cast<float>(total) / arr.length;
 
 
 	//return total
@@ -519,6 +520,69 @@ int sumOfElementsWithArrayRecursive(struct Array arr, int n) {
 		return sumOfElementsWithArrayRecursive(arr, n - 1) + arr.A[n];
 	
 };
+
+
+
+
+/*
+void reverseArrayAuxilary(struct Array* arr) {
+	
+	struct Array* auxArrayPointer;
+
+
+	
+	
+	for (int i = arr->length - 1, j = 0; i > 0; i--, j++) {
+		
+		auxArrayPointer->A[j] = arr->A[i];
+	
+	};
+
+	
+	for (int i = 0; i < arr->length; i++) {
+	
+		arr->A[i] = auxArrayPointer->A[i];
+	
+	};
+	
+};
+
+*/
+
+
+
+
+//pass in array pointer into parameter since we will be changing the value of the array
+//This can be either int or void, its void if you dont want to return a value
+//it can be int if you want to return 0 for successful or 1 for unsucessful, i will use int
+int reverseArraySwap(struct Array *arr) {
+
+
+	//We want to create two index points, one at the beginning of the array, and one at the end
+	// then we want to swap each element until the two indexes cross, thats when we know we are finished
+	for (int i = 0, j = arr->length - 1; i < j; i++, j--) {
+	
+		//We can use the swap element functions previously created to swap the elements by address
+		//We must use pointers since we are changing the values and want this change to
+		//be true even after the function ends
+		swapElements(&arr->A[i], &arr->A[j]);
+	
+
+		//return 0 for success
+
+		return 0;
+	};
+
+	//return 1 for unsuccessful
+	return 1;
+};
+
+
+
+
+
+
+
 
 
 
@@ -558,15 +622,17 @@ int sumOfElementsWithArrayRecursive(struct Array arr, int n) {
 		insertElement(&arr, 0, 999);
 		deleteElement(&arr, 1);
 		display(arr);
-		std::cout << '\n' << '\n' << maxElement(arr);
-		std::cout << '\n' << '\n' << minElement(arr);
-		std::cout << '\n' << '\n' << sumOfElementsWithinArray(arr);
-		std::cout << '\n' << '\n' << sumOfElementsWithArrayRecursive(arr, arr.length - 1);
-		std::cout << '\n' << '\n' << averageOfElementsWithinArray(arr);
-		std::cout << '\n' << '\n' << arr.length;
+		reverseArraySwap(&arr);
+		display(arr);
+		//std::cout << '\n' << '\n' << maxElement(arr);
+		//std::cout << '\n' << '\n' << minElement(arr);
+		//std::cout << '\n' << '\n' << sumOfElementsWithinArray(arr);
+		//std::cout << '\n' << '\n' << sumOfElementsWithArrayRecursive(arr, arr.length - 1);
+		//std::cout << '\n' << '\n' << averageOfElementsWithinArray(arr);
+		//std::cout << '\n' << '\n' << arr.length;
 		//deleteElement(&arr, 1);
 		//display(arr);
-		
+		//reverseArrayAuxilary(&arr);
 		//std::cout << '\n' << '\n' << getElement(arr, 2) << '\n';
 		//std::cout << '\n' << '\n' << linearArraySearch(arr, 21) << '\n';
 
