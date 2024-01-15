@@ -885,7 +885,7 @@ struct Array *mergeTwoSortedArrays(struct Array* arr, struct Array* arr2) {
 	};
  
 
-//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------//
 
 
 //Union of two arrays, if the value is present, then do not place in array3
@@ -940,6 +940,9 @@ struct Array* unionTwoSortedArrays(struct Array* arr, struct Array* arr2) {
 		}
 		else {
 
+			//if they are equal to each other then just take one element from either arrays
+			//and advance forward since we do not want duplicates
+
 			array3->A[c] = arr->A[i];
 			c++;
 			j++;
@@ -979,6 +982,174 @@ struct Array* unionTwoSortedArrays(struct Array* arr, struct Array* arr2) {
 
 };
 
+//------------------------------------------------------------------------------//
+
+
+//intersection only copies if they are equal
+struct Array* intersectionTwoSortedArrays(struct Array* arr, struct Array* arr2) {
+
+
+
+	//Create a third array dynamically where Array1 + Array2 will be merged
+	//The size of Array3 will be A length + B length
+	struct Array* array3 = new struct Array[arr->length + arr2->length];
+
+
+	//With the third array created, now we want to set 3 indexes
+	//which will represent all three arrays, i,j and c respectively
+	//and initialize all of them to 0
+
+	int i = 0;		//Array1
+	int j = 0;		//Array2
+	int c = 0;		//Array3
+
+
+
+
+	//We want to compare the elements of Array1 with Array2, and whichever
+	//element is less, we want to store it inside of Array 3 and then move
+	//the index + 1, we can go from 0 to length  which represents the last
+	//value inside of the array
+
+
+
+	while (i < arr->length && j < arr2->length) {
+
+		//Create an if statement that compares the element at index i
+		//with index j, and if the value is lower, place the element of i
+		//inside of array3 at index c, which is for the third array
+		if (arr->A[i] < arr2->A[j]) {
+
+			//Just move to the next element since they are not equal
+			i++;
+			
+		}
+
+		else if (arr2->A[j] < arr->A[i]) {
+
+		//Just move to the next element since they are not equal
+			j++;
+			
+
+		}
+		else if (arr->A[i] = arr2->A[j]){
+
+			array3->A[c] = arr->A[i];
+			c++;
+			j++;
+			i++;
+		}
+
+
+	}
+	//same logic is applied for when the element at j is lower than i
+
+	// then we should be left with
+	//a remainder of either i (array1) or j (array2) so all we do is copy 
+	//those elements straight into array3
+
+
+
+
+	array3->length = c;
+	array3->size = 10;
+
+
+	//now we can return the pointer pointing to the new struct Array obj
+
+	//This is returning an address, remember new returns an address within the heap
+	return array3;
+
+};
+
+
+
+
+//------------------------------------------------------------------------------//
+
+//Union of two arrays, if the value is present, then do not place in array3
+struct Array* differenceTwoSortedArrays(struct Array* arr, struct Array* arr2) {
+
+
+
+	//Create a third array dynamically where Array1 + Array2 will be merged
+	//The size of Array3 will be A length + B length
+	struct Array* array3 = new struct Array[arr->length + arr2->length];
+
+
+	//With the third array created, now we want to set 3 indexes
+	//which will represent all three arrays, i,j and c respectively
+	//and initialize all of them to 0
+
+	int i = 0;		//Array1
+	int j = 0;		//Array2
+	int c = 0;		//Array3
+
+
+
+
+	//We want to compare the elements of Array1 with Array2, and whichever
+	//element is less, we want to store it inside of Array 3 and then move
+	//the index + 1, we can go from 0 to length  which represents the last
+	//value inside of the array
+
+
+
+	while (i < arr->length && j < arr2->length) {
+
+		//Create an if statement that compares the element at index i
+		//with index j, and if the value is lower, place the element of i
+		//inside of array3 at index c, which is for the third array
+		if (arr->A[i] < arr2->A[j]) {
+
+			array3->A[c] = arr->A[i];
+
+			//go to the next element for both index i(array1), and index c(array3)
+			i++;
+			c++;
+		}
+
+		else if (arr2->A[j] < arr->A[i]) {
+
+			//if array2 is less then move to the next index
+			j++;
+
+		}
+		else {
+			//if they are equal then move to the next index
+
+			j++;
+			i++;
+		}
+
+
+	}
+	//same logic is applied for when the element at j is lower than i
+
+	// then we should be left with
+	//a remainder of either i (array1) or j (array2) so all we do is copy 
+	//those elements straight into array3
+
+
+	//Only copy the elements from array 1
+	for (; i < arr->length; i++) {
+
+		array3->A[c] = arr->A[i];
+		c++;
+	};
+
+
+
+	array3->length = c;
+	array3->size = 10;
+
+
+	//now we can return the pointer pointing to the new struct Array obj
+
+	//This is returning an address, remember new returns an address within the heap
+	return array3;
+
+};
 
 
 
@@ -1005,6 +1176,7 @@ struct Array* unionTwoSortedArrays(struct Array* arr, struct Array* arr2) {
 
 
 
+//------------------------------------------------------------------------------//
 
 //------------
  struct Array *unionOfTwoUnsortedArrays(struct Array *arr, struct Array *arr2){
@@ -1127,7 +1299,7 @@ struct Array* unionTwoSortedArrays(struct Array* arr, struct Array* arr2) {
 		// 
 		// 
 		//struct Array *arr3 = mergeTwoSortedArrays(&arr, &arr2);
-		struct Array* array3 = unionTwoSortedArrays(&arr3, &arr4);
+		struct Array* array3 = differenceTwoSortedArrays(&arr3, &arr4);
 		for (int i = 0; i < 10; i++) {
 			std::cout << array3->A[i] << '\n';
 		}
