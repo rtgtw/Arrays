@@ -13,11 +13,14 @@ struct Array {
 void display(struct Array arr) {
 	int i;
 
-	std::cout << '\n' << '\n';
+	std::cout << '\n' << '\n' << '\n';
 	std::cout << "Elements are: " << '\n';
 	for (i = 0; i < arr.length; i++) {
 		std::cout << arr.A[i] << '\n';
 	}
+
+	std::cout << '\n' << '\n';
+	
 };
 
 
@@ -778,6 +781,281 @@ void swapNegativeAndPositive(struct Array* arr) {
 
 
 
+// Array1  - {2,4,6,8,10}
+//Array 2 - {1,3,5,7,9}
+
+//Array1 - Size 5 & Length 5
+//Array2 - Size & Length is 5
+
+
+//Array3 - {1,2,3,4,5,6,7,8,9,10}
+//Array3 - Size & Length  is 10
+
+
+
+
+
+
+
+
+
+//Goal is to sort two sorted arrays and place it into a third array
+//Third array will be given back as a pointer (array3)
+struct Array *mergeTwoSortedArrays(struct Array* arr, struct Array* arr2) {
+
+
+
+	//Create a third array dynamically where Array1 + Array2 will be merged
+	//The size of Array3 will be A length + B length
+	struct Array* array3 = new struct Array[arr->length + arr2->length];
+
+
+	//With the third array created, now we want to set 3 indexes
+	//which will represent all three arrays, i,j and c respectively
+	//and initialize all of them to 0
+
+	int i = 0;		//Array1
+	int j = 0;		//Array2
+	int c = 0;		//Array3
+				
+
+
+
+	//We want to compare the elements of Array1 with Array2, and whichever
+	//element is less, we want to store it inside of Array 3 and then move
+	//the index + 1, we can go from 0 to length  which represents the last
+	//value inside of the array
+
+
+
+	while (i < arr->length   && j < arr2->length  ){
+		
+		//Create an if statement that compares the element at index i
+		//with index j, and if the value is lower, place the element of i
+		//inside of array3 at index c, which is for the third array
+		if (arr->A[i] < arr2->A[j]) {
+			
+			array3->A[c] = arr->A[i];
+
+			//go to the next element for both index i(array1), and index c(array3)
+			i++;
+			c++;
+		}
+
+		else if (arr2->A[j] < arr->A[i]) {
+
+				array3->A[c] = arr2->A[j];
+
+				j++;
+				c++;
+
+			}
+		
+
+	}
+	//same logic is applied for when the element at j is lower than i
+	
+	// then we should be left with
+	//a remainder of either i (array1) or j (array2) so all we do is copy 
+	//those elements straight into array3
+
+
+
+	for (; i < arr->length; i++) {
+		
+		array3->A[c] = arr->A[i];
+		c++;
+	};
+
+	for (; j < arr->length; j++) {
+	
+		array3->A[c] = arr2->A[j];
+	
+	};
+
+	array3->length = arr->length + arr2->length;
+	array3->size = 10;
+
+
+	//now we can return the pointer pointing to the new struct Array obj
+
+	//This is returning an address, remember new returns an address within the heap
+	return array3;
+	
+	};
+ 
+
+//------------------------------------------------------------------------------
+
+
+//Union of two arrays, if the value is present, then do not place in array3
+struct Array* unionTwoSortedArrays(struct Array* arr, struct Array* arr2) {
+
+
+
+	//Create a third array dynamically where Array1 + Array2 will be merged
+	//The size of Array3 will be A length + B length
+	struct Array* array3 = new struct Array[arr->length + arr2->length];
+
+
+	//With the third array created, now we want to set 3 indexes
+	//which will represent all three arrays, i,j and c respectively
+	//and initialize all of them to 0
+
+	int i = 0;		//Array1
+	int j = 0;		//Array2
+	int c = 0;		//Array3
+
+
+
+
+	//We want to compare the elements of Array1 with Array2, and whichever
+	//element is less, we want to store it inside of Array 3 and then move
+	//the index + 1, we can go from 0 to length  which represents the last
+	//value inside of the array
+
+
+
+	while (i < arr->length && j < arr2->length) {
+
+		//Create an if statement that compares the element at index i
+		//with index j, and if the value is lower, place the element of i
+		//inside of array3 at index c, which is for the third array
+		if (arr->A[i] < arr2->A[j]) {
+
+			array3->A[c] = arr->A[i];
+
+			//go to the next element for both index i(array1), and index c(array3)
+			i++;
+			c++;
+		}
+
+		else if (arr2->A[j] < arr->A[i]) {
+
+			array3->A[c] = arr2->A[j];
+
+			j++;
+			c++;
+
+		}
+		else {
+
+			array3->A[c] = arr->A[i];
+			c++;
+			j++;
+			i++;
+		}
+
+
+	}
+	//same logic is applied for when the element at j is lower than i
+
+	// then we should be left with
+	//a remainder of either i (array1) or j (array2) so all we do is copy 
+	//those elements straight into array3
+
+
+
+	for (; i < arr->length; i++) {
+
+		array3->A[c] = arr->A[i];
+		c++;
+	};
+
+	for (; j < arr->length; j++) {
+
+		array3->A[c] = arr2->A[j];
+
+	};
+
+	array3->length = c;
+	array3->size = 10;
+
+
+	//now we can return the pointer pointing to the new struct Array obj
+
+	//This is returning an address, remember new returns an address within the heap
+	return array3;
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------------
+ struct Array *unionOfTwoUnsortedArrays(struct Array *arr, struct Array *arr2){
+ 
+	 //First we want to create a third array inside of the heap
+	 struct Array* array3 = new struct Array[arr->length + arr2->length];
+	 array3->size = arr->length + arr2->length;
+	 array3->length = 0;
+
+	 //Create three index variables for Array1, Array2 and Array3
+	 int i = 0;
+	 int j = 0;
+	 int c = 0;
+
+	 //We want to insert Array1 elements inside of the third array
+
+	 for (int i = 0; i < arr->length; i++) {
+		
+		 array3->A[c] = arr->A[i];
+		 c++;
+		 array3->length++;
+	 
+	 };
+	 
+	 //Now that we have Array1 inside of Array3, we now need to compare the elements in Array2
+	 //With the elements already present in array3, if the value is present, dont insert,
+	 //if it is not present then insert in array3
+
+	 for (int j = 0; j < arr2->length; j++) {
+		
+		for (int c = 0; c < array3->length; c++){
+			
+			if( array3->A[c] == arr2->A[j]  ){
+			}
+			else {
+				array3->A[array3->length] = arr2->A[j];
+			}
+		
+		}
+	 
+	 };
+	 
+	 
+	 return array3;
+ 
+ };
+
+
+ 
+
+
 
 
 
@@ -790,13 +1068,14 @@ void swapNegativeAndPositive(struct Array* arr) {
 	int main() {
 
 		struct Array arr = { {0,20,50,80,100}, 10,5 };
-		struct Array arr2 = { {-2,20,50,-5,-100}, 10,5 };
+		struct Array arr2 = { {10,30,60,90,99}, 10,5 };
 
+		struct Array arr3 = { {2,6,10,15,25}, 10,5 };
+		struct Array arr4 = { {3,6,7,15,20}, 10,5 };
 		//int i;
 		//int v;
 		//std::cin >> i;
 		//std::cin >> v;
-
 		//insert(&arr, i, v);
 		//insert(&arr, 5, 525);
 		//append(&arr, 99);
@@ -810,13 +1089,10 @@ void swapNegativeAndPositive(struct Array* arr) {
 		//display(arr);
 		//deleteElement(&arr, 0);
 		//std::cout << binaryArraySearchUsingLoop(arr, 100) << '\n' << '\n';
-
 		//std::cout << binarySearchArrayUsingRecursion(arr.A,100,0,arr.length-1) << '\n' << '\n';
 		//display(arr);
 		//setElement(&arr, 1, 444);
 		//display(arr);
-		
-
 		//insertElement(&arr, 0, 999);
 		//deleteElement(&arr, 1);
 		//display(arr);
@@ -826,13 +1102,13 @@ void swapNegativeAndPositive(struct Array* arr) {
 		//rotateElementsToRight(&arr);
 		//insertElementIntoSortedArray(&arr, 101);
 		//swapNegativeAndPositive(&arr2);
-		insertElement(&arr2, 0, 4444);
-		insertElement(&arr2, 0, 4443);
-		insertElement(&arr2, 0, 4442);
-		insertElement(&arr2, 0, 4441);
-		insertElement(&arr2, 0, 4440);
-		insertElement(&arr2, 0, 4439);
-		display(arr2);
+		//insertElement(&arr2, 0, 4444);
+		//insertElement(&arr2, 0, 4443);
+		//insertElement(&arr2, 0, 4442);
+		//insertElement(&arr2, 0, 4441);
+		//insertElement(&arr2, 0, 4440);
+		//insertElement(&arr2, 0, 4439);
+		//display(arr2);
 		//std::cout <<  checkIfArrayIsSorted(arr);
 		//std::cout << '\n' << '\n' << maxElement(arr);
 		//std::cout << '\n' << '\n' << minElement(arr);
@@ -845,7 +1121,17 @@ void swapNegativeAndPositive(struct Array* arr) {
 		//reverseArrayAuxilary(&arr);
 		//std::cout << '\n' << '\n' << getElement(arr, 2) << '\n';
 		//std::cout << '\n' << '\n' << linearArraySearch(arr, 21) << '\n';
-
+		//display(arr);
+		// 
+		//display(arr2);
+		// 
+		// 
+		//struct Array *arr3 = mergeTwoSortedArrays(&arr, &arr2);
+		struct Array* array3 = unionTwoSortedArrays(&arr3, &arr4);
+		for (int i = 0; i < 10; i++) {
+			std::cout << array3->A[i] << '\n';
+		}
+		
 
 		return 0;
 
