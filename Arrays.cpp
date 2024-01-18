@@ -2,7 +2,7 @@
 
 struct Array {
 
-	int A[10];
+	int *A;
 	int size;
 	int length;
 };
@@ -21,6 +21,8 @@ void display(struct Array arr) {
 
 	std::cout << '\n' << '\n';
 	
+
+
 };
 
 
@@ -39,6 +41,9 @@ void append(struct Array *arr, int x) {
 	if (arr->length < arr->size) {
 		arr->A[arr->length++] = x;
 		
+	}
+	else {
+		std::cout << "Error: not enough room inside of the array. Cannot perform operation" << '\n';
 	}
 };
 
@@ -371,6 +376,22 @@ int getElement(struct Array arr, int index) {
 	}
 	return -1;
 };
+
+
+//Return the index at which the element is stored at
+int getIndex(struct Array arr, int element) {
+
+	//Use a for loop to iterate through the array's length
+	for(int i = 0; i < arr.length; i++){
+		
+		//if the element is equal, return the index
+		if (element == arr.A[i]) {
+			return i;
+		};
+	
+	}
+	};
+
 
 
 //Set a value within an array
@@ -1239,11 +1260,43 @@ struct Array* differenceTwoSortedArrays(struct Array* arr, struct Array* arr2) {
 	
 	int main() {
 
-		struct Array arr = { {0,20,50,80,100}, 10,5 };
-		struct Array arr2 = { {10,30,60,90,99}, 10,5 };
+		struct Array arr1;
+		int choice;
+		int value;
+		int index;
 
-		struct Array arr3 = { {2,6,10,15,25}, 10,5 };
-		struct Array arr4 = { {3,6,7,15,20}, 10,5 };
+		std::cout << "Enter the size of the array: ";
+		std::cin >> arr1.size;
+		arr1.length = 0;
+		arr1.A = new int[arr1.size];
+		
+		std::cout << "Menu \n";
+		std::cout << "1. Insert \n";
+		std::cout << "2. Delete \n";
+		std::cout << "3. Search \n";
+		std::cout << "4. Sum \n";
+		std::cout << "5. Display \n";
+		std::cout << "6. Exit \n";
+
+		std::cout << "enter your choice ";
+		std::cin >> choice;
+
+		//Create a switch case
+		switch (choice) {
+		case 1: std::cout << "Enter an index and value";
+			std::cin >> index;
+			std::cin >> value;
+			insertElement(&arr1, index, value);
+			break;
+
+
+		}
+		display(arr1);
+
+		//struct Array arr = { {0,20,50,80,100}, 10,5 };
+		//struct Array arr2 = { {10,30,60,90,99}, 10,5 };
+		//struct Array arr3 = { {2,6,10,15,25}, 10,5 };
+		//struct Array arr4 = { {3,6,7,15,20}, 10,5 };
 		//int i;
 		//int v;
 		//std::cin >> i;
@@ -1299,10 +1352,10 @@ struct Array* differenceTwoSortedArrays(struct Array* arr, struct Array* arr2) {
 		// 
 		// 
 		//struct Array *arr3 = mergeTwoSortedArrays(&arr, &arr2);
-		struct Array* array3 = differenceTwoSortedArrays(&arr3, &arr4);
-		for (int i = 0; i < 10; i++) {
-			std::cout << array3->A[i] << '\n';
-		}
+		//struct Array* array3 = differenceTwoSortedArrays(&arr3, &arr4);
+		//for (int i = 0; i < 10; i++) {
+		//	std::cout << array3->A[i] << '\n';
+		//}
 		
 
 		return 0;
