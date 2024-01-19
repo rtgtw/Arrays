@@ -19,6 +19,7 @@ void display(struct Array arr) {
 		std::cout << arr.A[i] << '\n';
 	}
 
+
 	std::cout << '\n' << '\n';
 	
 
