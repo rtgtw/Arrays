@@ -19,11 +19,7 @@ void display(struct Array arr) {
 		std::cout << arr.A[i] << '\n';
 	}
 
-
 	std::cout << '\n' << '\n';
-	
-
-
 
 };
 
@@ -48,8 +44,6 @@ void append(struct Array *arr, int x) {
 		std::cout << "Error: not enough room inside of the array. Cannot perform operation" << '\n';
 	}
 };
-
-
 
 
 
